@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_main.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjosue <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 15:39:05 by cjosue            #+#    #+#             */
-/*   Updated: 2019/11/04 15:39:16 by cjosue           ###   ########.fr       */
+/*   Created: 2019/11/05 19:02:30 by cjosue            #+#    #+#             */
+/*   Updated: 2019/11/05 19:02:32 by cjosue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/push_swap.h"
+#include "../includes/push_swap.h"
 #include <stdio.h>
 
 void		ft_is_sorted(t_stack *stacks, int ac)
@@ -58,4 +58,3 @@ int		main(int ac, char **av)
 	ft_is_sorted(&stacks, ac);
 	return (1);
 }
-
