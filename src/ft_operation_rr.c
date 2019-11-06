@@ -14,37 +14,43 @@
 
 void		ft_rra(t_stack *stacks)
 {
-	int		i;
+	t_array	*tmp;
 
-	i = stacks->size_a;
 	if (stacks->size_a > 1)
 	{
-		stacks->a[0] = stacks->a[stacks->size_a];
-		stacks->a[stacks->size_a] = 0;
-		while(i >= 0)
+		if (stacks->size_a == 2)
+			ft_sa(stacks);
+		else
 		{
-			stacks->a[i + 1] = stacks->a[i];
-			i--;
+			tmp = stacks->a_end;
+			stacks->a_end = stacks->a_end->prev;
+			stacks->a_end->next = NULL;
+			tmp->next = stacks->a_head;
+			tmp->prev = NULL;
+			stacks->a_head->prev = tmp;
+			stacks->a_head = tmp;
 		}
-		stacks->a[0] = 0;
 	}
 }
 
 void		ft_rrb(t_stack *stacks)
 {
-	int		i;
+	t_array	*tmp;
 
-	i = stacks->size_b;
 	if (stacks->size_b > 1)
 	{
-		stacks->b[0] = stacks->b[stacks->size_b];
-		stacks->b[stacks->size_b] = 0;
-		while(i >= 0)
+		if (stacks->size_b == 2)
+			ft_sb(stacks);
+		else
 		{
-			stacks->b[i + 1] = stacks->b[i];
-			i--;
+			tmp = stacks->b_end;
+			stacks->b_end = stacks->b_end->prev;
+			stacks->b_end->next = NULL;
+			tmp->next = stacks->b_head;
+			tmp->prev = NULL;
+			stacks->b_head->prev = tmp;
+			stacks->b_head = tmp;
 		}
-		stacks->b[0] = 0;
 	}
 }
 

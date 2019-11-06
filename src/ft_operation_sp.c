@@ -14,23 +14,41 @@
 
 void		ft_sa(t_stack *stacks)
 {
+	t_array *tmp;
+	t_array *tmp2;
+
+	tmp = stacks->a_head;
+	tmp2 = NULL;
 	if (stacks->size_a > 1)
 	{
-		stacks->a[0] = stacks->a[1];
-		stacks->a[1] = stacks->a[2];
-		stacks->a[2] = stacks->a[0];
-		stacks->a[0] = 0;
+		tmp2 = stacks->a_head->next;
+		stacks->a_head = tmp2;
+		stacks->a_head->prev = NULL;
+		tmp->next = tmp2->next;
+		tmp->prev = tmp2;
+		stacks->a_head->next = tmp;
+		if (tmp->next)
+			tmp->next->prev = tmp;
 	}
 }
 
 void		ft_sb(t_stack *stacks)
 {
+	t_array *tmp;
+	t_array *tmp2;
+
+	tmp = stacks->b_head;
+	tmp2 = NULL;
 	if (stacks->size_b > 1)
 	{
-		stacks->b[0] = stacks->b[1];
-		stacks->b[1] = stacks->b[2];
-		stacks->b[2] = stacks->b[0];
-		stacks->b[0] = 0;
+		tmp2 = stacks->b_head->next;
+		stacks->b_head = tmp2;
+		stacks->b_head->prev = NULL;
+		tmp->next = tmp2->next;
+		tmp->prev = tmp2;
+		stacks->b_head->next = tmp;
+		if (tmp->next)
+			tmp->next->prev = tmp;
 	}
 }
 
@@ -42,54 +60,62 @@ void		ft_ss(t_stack *stacks)
 
 void		ft_pa(t_stack *stacks)
 {
-	int		i;
+	t_array	*tmp;
 
-	i = stacks->size_a;
 	if (stacks->size_b > 0)
 	{
-		stacks->a[0] = stacks->b[1];
-		while(i >= 0)
+		tmp = stacks->b_head;
+		if (stacks->size_b == 1)
+			stacks->b_head = NULL;
+		else
 		{
-			stacks->a[i + 1] = stacks->a[i];
-			i--;
+			stacks->b_head = stacks->b_head->next;
+			stacks->b_head->prev = NULL;
 		}
-		stacks->a[0] = 0;
-		stacks->size_a++;
-		i = 0;
-		while ( i < stacks->size_b)
+		if (stacks->size_a == 0)
 		{
-			stacks->b[i] = stacks->b[i + 1];
-			i++;
+			stacks->a_head = tmp;
+			stacks->a_head->next = NULL;
+			stacks->a_end = stacks->a_head;
 		}
-		stacks->b[0] = 0;
-		stacks->b[i] = 0;
+		else
+		{
+			tmp->next = stacks->a_head;
+			stacks->a_head->prev = tmp;
+			stacks->a_head = tmp;
+		}
 		stacks->size_b--;
+		stacks->size_a++;
 	}
 }
 
 void		ft_pb(t_stack *stacks)
 {
-	int		i;
+	t_array	*tmp;
 
-	i = stacks->size_b;
 	if (stacks->size_a > 0)
 	{
-		stacks->b[0] = stacks->a[1];
-		while (i >= 0)
+		tmp = stacks->a_head;
+		if (stacks->size_a == 1)
+			stacks->a_head = NULL;
+		else
 		{
-			stacks->b[i + 1] = stacks->b[i];
-			i--;
+			stacks->a_head = stacks->a_head->next;
+			stacks->a_head->prev = NULL;
 		}
-		stacks->b[0] = 0;
-		stacks->size_b++;
-		i = 0;
-		while ( i < stacks->size_a)
+		if (stacks->size_b == 0)
 		{
-			stacks->a[i] = stacks->a[i + 1];
-			i++;
+			stacks->b_head = tmp;
+			stacks->b_head->next = NULL;
+			stacks->b_end = stacks->b_head;
 		}
-		stacks->a[0] = 0;
-		stacks->a[i] = 0;
+		else
+		{
+			tmp->next = stacks->b_head;
+			stacks->b_head->prev = tmp;
+			stacks->b_head = tmp;
+		}
 		stacks->size_a--;
+		stacks->size_b++;
 	}
 }

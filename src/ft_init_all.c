@@ -45,26 +45,20 @@ void			ft_init_operation(t_ps *ps)
 
 int				ft_init_stack(t_stack *stacks, int ac, char **av)
 {
-	int			index;
+	t_array		*tmp;
 
-	index = 1;
-	if (!(stacks->a = (int*)malloc(sizeof(int) * ac)) || !(stacks->b = (int*)malloc(sizeof(int) * ac)))
+	if (!(ft_create_list(stacks, ac - 1)))
 		return (0);
-	stacks->size_f = ac - 1;
 	stacks->size_a = ac - 1;
 	stacks->size_b = 0;
-	stacks->a[0] = 0;
-	stacks->b[0] = 0;
-	while (index < ac)
+	tmp = stacks->a_end;
+	while (--ac > 0)
 	{
-		if (ft_is_number(av[index]))
-		{
-			stacks->a[index] = ft_atoi(av[index]);
-			stacks->b[index] = 0;
-		}
+		if (ft_is_number(av[ac]))
+			tmp->num = ft_atoi(av[ac]);
 		else
 			return (0);
-		index++;
+		tmp = tmp->prev;
 	}
 	return (1);
 }

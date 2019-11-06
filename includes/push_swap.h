@@ -15,11 +15,19 @@
 
 # include "../libft/libft.h"
 
+typedef struct		s_array
+{
+	int				num;
+	struct s_array	*next;
+	struct s_array	*prev;
+}					t_array;
+
 typedef struct	s_stack
 {
-	int			*a;
-	int			*b;
-	int			size_f;
+	t_array		*a_head;
+	t_array		*a_end;
+	t_array		*b_head;
+	t_array		*b_end;
 	int			size_a;
 	int			size_b;
 }				t_stack;
@@ -48,6 +56,9 @@ int				ft_init_stack(t_stack *stacks, int ac, char **av);
 int				ft_init_comand(t_ps *ps);
 int				ft_is_number(char *num);
 void			ft_is_sorted(t_stack *stacks, int ac);
+int				ft_create_list(t_stack *stacks, int ac);
+void			ft_del_list(t_stack *stacks);
+t_array			*ft_create_elem(void);
 
 #endif
 

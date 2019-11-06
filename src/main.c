@@ -15,22 +15,21 @@
 
 void		ft_is_sorted(t_stack *stacks, int ac)
 {
-	int		i;
+	t_array	*tmp;
 
-	i = 1;
 	if (stacks->size_a != (ac - 1))
 	{
 		ft_putstr_fd("KO\n", 0);
 		return ;
 	}
-	while (i < (ac - 1))
+	tmp = stacks->a_head;
+	while (--ac > 1)
 	{
-		if (stacks->a[i] > stacks->a[i + 1])
+		if (tmp->num > tmp->next->num)
 		{
 			ft_putstr_fd("KO\n", 0);
 			return ;
 		}
-		i++;
 	}
 	ft_putstr_fd("OK\n", 1);
 }
