@@ -13,8 +13,8 @@
 
 #!/bin/bash
 
-MAXCOUNT=100
-RANGE=1000
+MAXCOUNT=500
+RANGE=10000
 count=1
 
 while [ "$count" -le $MAXCOUNT ]

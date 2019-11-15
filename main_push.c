@@ -48,6 +48,8 @@ typedef struct	s_min
 {
 	int			min;
 	int			min_pos;
+	int			min_next;
+	int			min_pos_next;
 }				t_min;
 
 void			ft_stacks_min(t_stack *stacks, t_min *m)
@@ -71,36 +73,83 @@ void			ft_stacks_min(t_stack *stacks, t_min *m)
 	}
 }
 
+void		ft_stacks_min_next(t_stack *stacks, t_min *m)
+{
+	t_array	*tmp;
+	int		i;
+
+	tmp = stacks->a_head;
+	m->min_next = stacks->a_head->num == m->min ? stacks->a_head->next->num : stacks->a_head->num;
+	m->min_pos_next = stacks->a_head->num == m->min ? 2 : 1;
+	i = 0;
+	while (i < stacks->size_a)
+	{
+		if (m->min_next > tmp->num && tmp->num != m->min)
+		{
+			m->min_next = tmp->num;
+			m->min_pos_next = i + 1;
+		}
+		tmp = tmp->next;
+		i++;
+	}
+}
+
 void		ft_push_swap(t_stack *stacks, t_ps *ps)
 {
 	t_min	m;
 	int		oprtn;
+	int		oprtn_next;
+	int		flag;
 
 	while (!ft_a_sorted(stacks))
 	{
+		flag = 0;
 		ft_stacks_min(stacks, &m);
-		oprtn = (m.min_pos <= stacks->size_a / 2 ) ? 5 : 8;
-//		if (stacks->a_head->num > stacks->a_head->next->num && stacks->a_head->next->num != m.min)
-//		{
-//			ps->operation[0](stacks);
-//			ft_putendl_fd(ps->comand[0], 1);
-//		}
-		if (ft_a_sorted(stacks) == 1)
-			break;
+		ft_stacks_min_next(stacks, &m);
+		oprtn = (m.min_pos <= stacks->size_a / 2 + 1) ? 5 : 8;
+		oprtn_next = (m.min_pos_next <= stacks->size_a / 2 + 1) ? 5 : 8;
+//		printf("%d  min  %d next\n", m.min_pos, m.min_pos_next);
+		if (oprtn == 8)
+			m.min_pos = stacks->size_a - m.min_pos + 1;
+		if (oprtn_next == 8)
+			m.min_pos_next = stacks->size_a - m.min_pos_next + 1;
+//		printf("%d  min  %d next\n", m.min_pos, m.min_pos_next);
+		if (m.min_pos_next < m.min_pos && (m.min_pos - m.min_pos_next) > 1)
+		{
+			while (stacks->a_head->num != m.min_next)
+			{
+				ps->operation[oprtn_next](stacks);
+				ft_putendl_fd(ps->comand[oprtn_next], 1);
+			}
+			ps->operation[4](stacks);
+			ft_putendl_fd(ps->comand[4], 1);
+			flag = 1;
+			ft_stacks_min(stacks, &m);
+			oprtn = (m.min_pos <= stacks->size_a / 2 + 1) ? 5 : 8;
+		}
+
+
+//		if (ft_a_sorted(stacks) == 1)
+//			break;
 		while (stacks->a_head->num != m.min)
 		{
-//			if (stacks->a_head->num > stacks->a_head->next->num && stacks->a_head->next->num != m.min)
-//			{
-//				ps->operation[0](stacks);
-//				ft_putendl_fd(ps->comand[0], 1);
-//			}
 			ps->operation[oprtn](stacks);
 			ft_putendl_fd(ps->comand[oprtn], 1);
 		}
+		if (flag == 1)
+		{
+			ps->operation[4](stacks);
+			ft_putendl_fd(ps->comand[4], 1);
+			ps->operation[1](stacks);
+			ft_putendl_fd(ps->comand[1], 1);
+		}
 		if (ft_a_sorted(stacks))
 			break;
-		ps->operation[4](stacks);
-		ft_putendl_fd(ps->comand[4], 1);
+		if (flag == 0)
+		{
+			ps->operation[4](stacks);
+			ft_putendl_fd(ps->comand[4], 1);
+		}
 	}
 	while (stacks->size_b != 0)
 	{
