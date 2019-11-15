@@ -78,22 +78,22 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 
 	while (!ft_a_sorted(stacks))
 	{
-		if (stacks->a_head->num > stacks->a_head->next->num)
-		{
-			ps->operation[0](stacks);
-			ft_putendl_fd(ps->comand[0], 1);
-		}
+		ft_stacks_min(stacks, &m);
+		oprtn = (m.min_pos <= stacks->size_a / 2 ) ? 5 : 8;
+//		if (stacks->a_head->num > stacks->a_head->next->num && stacks->a_head->next->num != m.min)
+//		{
+//			ps->operation[0](stacks);
+//			ft_putendl_fd(ps->comand[0], 1);
+//		}
 		if (ft_a_sorted(stacks) == 1)
 			break;
-		ft_stacks_min(stacks, &m);
-		oprtn = (m.min_pos <= stacks->size_a / 2) ? 5 : 8;
 		while (stacks->a_head->num != m.min)
 		{
-			if (stacks->a_head->num > stacks->a_head->next->num && stacks->a_head->next->num != m.min)
-			{
-				ps->operation[0](stacks);
-				ft_putendl_fd(ps->comand[0], 1);
-			}
+//			if (stacks->a_head->num > stacks->a_head->next->num && stacks->a_head->next->num != m.min)
+//			{
+//				ps->operation[0](stacks);
+//				ft_putendl_fd(ps->comand[0], 1);
+//			}
 			ps->operation[oprtn](stacks);
 			ft_putendl_fd(ps->comand[oprtn], 1);
 		}
@@ -113,13 +113,23 @@ int		main(int ac, char **av)
 {
 	t_stack	stacks;
 	t_ps	ps;
+	char	**nav;
 
 	if (ac == 1)
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
-	if (!(ft_init_stack(&stacks, ac, av)))
+	nav = av + 1;
+	ac--;
+	if (ac == 1)
+	{
+		nav = ft_strsplit(nav[0], 32);
+		ac = 0;
+		while (nav[ac])
+			ac++;
+	}
+	if (!(ft_init_stack(&stacks, ac, nav)))
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (0);

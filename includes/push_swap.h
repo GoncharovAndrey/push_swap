@@ -49,7 +49,7 @@ void			ft_rr(t_stack *stacks);
 void			ft_rra(t_stack *stacks);
 void			ft_rrb(t_stack *stacks);
 void			ft_rrr(t_stack *stacks);
-int				ft_read_do(t_ps *ps, t_stack *stacks);
+int				ft_read_do(t_ps *ps, t_stack *stacks, char *av);
 int				ft_number_operation(char *stdin, t_ps *ps);
 void			ft_init_operation(t_ps *ps);
 int				ft_init_stack(t_stack *stacks, int ac, char **av);

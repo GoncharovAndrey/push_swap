@@ -47,12 +47,12 @@ int				ft_init_stack(t_stack *stacks, int ac, char **av)
 {
 	t_array		*tmp;
 
-	if (!(ft_create_list(stacks, ac - 1)))
+	if (!(ft_create_list(stacks, ac )))
 		return (0);
-	stacks->size_a = ac - 1;
+	stacks->size_a = ac;
 	stacks->size_b = 0;
 	tmp = stacks->a_end;
-	while (--ac > 0)
+	while (--ac >= 0)
 	{
 		if (ft_is_number(av[ac]))
 			tmp->num = ft_atoi(av[ac]);

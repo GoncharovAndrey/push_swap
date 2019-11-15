@@ -27,7 +27,7 @@ int			ft_number_operation(char *stdin, t_ps *ps)
 	return (index);
 }
 
-int			ft_read_do(t_ps *ps, t_stack *stacks)
+int			ft_read_do(t_ps *ps, t_stack *stacks, char *av)
 {
 	int		i;
 	char	*stdin;
@@ -42,21 +42,25 @@ int			ft_read_do(t_ps *ps, t_stack *stacks)
 			return (0);
 		}
 		ps->operation[i](stacks);
-
-		tmp = stacks->b_head;
-		while (tmp)
+		if (!ft_strcmp(av, "-v"))
 		{
-			printf("%3d ", tmp->num);
-			tmp = tmp->next;
+			printf("%s\n", ps->comand[i]);
+			tmp = stacks->b_head;
+			while (tmp)
+			{
+				printf("%3d ", tmp->num);
+				tmp = tmp->next;
+			}
+			printf("  -b\n");
+			tmp = stacks->a_head;
+			while (tmp)
+			{
+				printf("%3d ", tmp->num);
+				tmp = tmp->next;
+			}
+			printf("  -a\n");
+			printf("\n");
 		}
-		printf("  -b\n");
-		tmp = stacks->a_head;
-		while (tmp)
-		{
-			printf("%3d ", tmp->num);
-			tmp = tmp->next;
-		}
-		printf("  -a\n");
 		ft_strdel(&stdin);
 	}
 	return (1);
