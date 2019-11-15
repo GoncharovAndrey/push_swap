@@ -31,7 +31,7 @@ int			ft_read_do(t_ps *ps, t_stack *stacks)
 {
 	int		i;
 	char	*stdin;
-//	t_array	*tmp;
+	t_array	*tmp;
 
 	i = 0;
 	while (get_next_line(0, &stdin) != 0)
@@ -42,21 +42,21 @@ int			ft_read_do(t_ps *ps, t_stack *stacks)
 			return (0);
 		}
 		ps->operation[i](stacks);
-//
-//		tmp = stacks->b_head;
-//		while (tmp)
-//		{
-//			printf("%3d ", tmp->num);
-//			tmp = tmp->next;
-//		}
-//		printf("  -b\n");
-//		tmp = stacks->a_head;
-//		while (tmp)
-//		{
-//			printf("%3d ", tmp->num);
-//			tmp = tmp->next;
-//		}
-//		printf("  -a\n");
+
+		tmp = stacks->b_head;
+		while (tmp)
+		{
+			printf("%3d ", tmp->num);
+			tmp = tmp->next;
+		}
+		printf("  -b\n");
+		tmp = stacks->a_head;
+		while (tmp)
+		{
+			printf("%3d ", tmp->num);
+			tmp = tmp->next;
+		}
+		printf("  -a\n");
 		ft_strdel(&stdin);
 	}
 	return (1);

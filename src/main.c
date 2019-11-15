@@ -30,6 +30,7 @@ void		ft_is_sorted(t_stack *stacks, int ac)
 			ft_putstr_fd("KO\n", 0);
 			return ;
 		}
+		tmp = tmp->next;
 	}
 	ft_putstr_fd("OK\n", 1);
 }
