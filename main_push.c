@@ -184,15 +184,6 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 		ft_putendl_fd(ps->comand[3], 1);
 	}
 }
-/*
-void		ft_push_swap_rec(t_stack *stacks, int *com, int *len_com)
-{
-	int		i;
-	int		in;
-
-	i = 0;
-	while (com[0] != 11)
-}*/
 
 int		main(int ac, char **av)
 {

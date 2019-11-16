@@ -38,6 +38,16 @@ typedef struct	s_push_swap
 	void		(*operation[11])(t_stack *stacks);
 }				t_ps;
 
+typedef struct	s_recurse
+{
+	int			*arr_com;
+	int			*arr_res;
+	int			lenght;
+	int			i;
+	int			(*operation[11])(t_stack stacks, t_rec *rec);
+}				t_rec;
+
+
 void			ft_sa(t_stack *stacks);
 void			ft_sb(t_stack *stacks);
 void			ft_ss(t_stack *stacks);
@@ -59,6 +69,20 @@ void			ft_is_sorted(t_stack *stacks, int ac);
 int				ft_create_list(t_stack *stacks, int ac);
 void			ft_del_list(t_stack *stacks);
 t_array			*ft_create_elem(void);
+
+
+void			ft_init_rec(t_rec *rec, int len);
+int				ft_sa_rec(t_stack *stacks, t_rec *rec);
+int				ft_sb_rec(t_stack *stacks, t_rec *rec);
+int				ft_ss_rec(t_stack *stacks, t_rec *rec);
+int				ft_pa_rec(t_stack *stacks, t_rec *rec);
+int				ft_pb_rec(t_stack *stacks, t_rec *rec);
+int				ft_ra_rec(t_stack *stacks, t_rec *rec);
+int				ft_rb_rec(t_stack *stacks, t_rec *rec);
+int				ft_rr_rec(t_stack *stacks, t_rec *rec);
+int				ft_rra_rec(t_stack *stacks, t_rec *rec);
+int				ft_rrb_rec(t_stack *stacks, t_rec *rec);
+int				ft_rrr_rec(t_stack *stacks, t_rec *rec);
 
 #endif
 
