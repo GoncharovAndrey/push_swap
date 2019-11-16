@@ -93,6 +93,30 @@ void		ft_stacks_min_next(t_stack *stacks, t_min *m)
 		i++;
 	}
 }
+void		ft_max_prev_sa(t_stack *stacks, t_ps *ps)
+{
+	t_array	*tmp;
+	int		max;
+	int		prev;
+
+	if (stacks->size_a > 2)
+	{
+		tmp = stacks->a_head->next->next;
+		max = stacks->a_head->num;
+		prev = stacks->a_head->next->num;
+		if (max > prev)
+		{
+			while (tmp)
+			{
+				if (max > tmp->num && tmp->num > prev)
+					return;
+				tmp = tmp->next;
+			}
+			ps->operation[0](stacks);
+			ft_putendl_fd(ps->comand[0], 1);
+		}
+	}
+}
 
 void		ft_push_swap(t_stack *stacks, t_ps *ps)
 {
@@ -104,6 +128,7 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 	while (!ft_a_sorted(stacks))
 	{
 		flag = 0;
+		ft_max_prev_sa(stacks, ps);
 		ft_stacks_min(stacks, &m);
 		ft_stacks_min_next(stacks, &m);
 		oprtn = (m.min_pos <= stacks->size_a / 2 + 1) ? 5 : 8;
@@ -118,6 +143,7 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 		{
 			while (stacks->a_head->num != m.min_next)
 			{
+				ft_max_prev_sa(stacks, ps);
 				ps->operation[oprtn_next](stacks);
 				ft_putendl_fd(ps->comand[oprtn_next], 1);
 			}
@@ -133,6 +159,7 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 //			break;
 		while (stacks->a_head->num != m.min)
 		{
+			ft_max_prev_sa(stacks, ps);
 			ps->operation[oprtn](stacks);
 			ft_putendl_fd(ps->comand[oprtn], 1);
 		}
@@ -157,6 +184,15 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 		ft_putendl_fd(ps->comand[3], 1);
 	}
 }
+/*
+void		ft_push_swap_rec(t_stack *stacks, int *com, int *len_com)
+{
+	int		i;
+	int		in;
+
+	i = 0;
+	while (com[0] != 11)
+}*/
 
 int		main(int ac, char **av)
 {

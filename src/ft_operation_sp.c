@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <stdio.h>
 
 void		ft_sa(t_stack *stacks)
 {
@@ -29,6 +30,8 @@ void		ft_sa(t_stack *stacks)
 		stacks->a_head->next = tmp;
 		if (tmp->next)
 			tmp->next->prev = tmp;
+		if (stacks->size_a == 2)
+			stacks->a_end = stacks->a_head->next;
 	}
 }
 
@@ -49,6 +52,8 @@ void		ft_sb(t_stack *stacks)
 		stacks->b_head->next = tmp;
 		if (tmp->next)
 			tmp->next->prev = tmp;
+		if (stacks->size_b == 2)
+			stacks->b_end = stacks->b_head->next;
 	}
 }
 
