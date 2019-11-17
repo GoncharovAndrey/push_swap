@@ -214,8 +214,19 @@ int		main(int ac, char **av)
 		return (0);
 	ft_init_operation(&ps);
 
-	ft_push_swap(&stacks, &ps);
+	ft_push_swap_in(&stacks,&ps);
+//	ft_push_swap(&stacks, &ps);
+/*	t_rec	rec;
+	ft_init_rec(&rec, &ps, ac * 10);
+	ft_push_swap_rec(&stacks, &rec, &ps);
+	int		i;
 
+	i = 0;
+	while (i < rec.lenght)
+	{
+		printf("%s\n", ps.comand[rec.arr_res[i]]);
+		i++;
+	}*/
 //	ft_is_sorted(&stacks, ac);
 	return (1);
 }

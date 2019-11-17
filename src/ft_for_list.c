@@ -19,6 +19,7 @@ t_array			*ft_create_elem(void)
 	if (!(tmp = (t_array*)malloc(sizeof(t_array))))
 		return (NULL);
 	tmp->num = 0;
+	tmp->group = 0;
 	tmp->next = NULL;
 	tmp->prev = NULL;
 	return (tmp);
