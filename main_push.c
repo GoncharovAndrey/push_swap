@@ -184,7 +184,25 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 		ft_putendl_fd(ps->comand[3], 1);
 	}
 }
+int		ft_duplicate_stack(t_stack *stacks)
+{
+	t_array	*tmp;
+	t_array	*number;
 
+	number = stacks->a_head;
+	while (number != stacks->a_end)
+	{
+		tmp = number->next;
+		while (tmp != stacks->a_end->next)
+		{
+			if (number->num == tmp->num)
+				return (0);
+			tmp = tmp->next;
+		}
+		number = number->next;
+	}
+	return (1);
+}
 int		main(int ac, char **av)
 {
 	t_stack	stacks;
@@ -213,6 +231,11 @@ int		main(int ac, char **av)
 	if (!(ft_init_comand(&ps)))
 		return (0);
 	ft_init_operation(&ps);
+	if (!(ft_duplicate_stack(&stacks)))
+	{
+		ft_putstr_fd("Error\n", 2);
+		return (0);
+	}
 
 	ft_push_swap_in(&stacks,&ps);
 //	ft_push_swap(&stacks, &ps);

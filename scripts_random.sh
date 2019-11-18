@@ -14,7 +14,7 @@
 #!/bin/bash
 
 MAXCOUNT=500
-RANGE=1000
+RANGE=100000
 count=1
 
 while [ "$count" -le $MAXCOUNT ]

@@ -48,14 +48,14 @@ int			ft_read_do(t_ps *ps, t_stack *stacks, char *av)
 			tmp = stacks->b_head;
 			while (tmp)
 			{
-				printf("%3d ", tmp->num);
+				printf("{%d}", tmp->num);
 				tmp = tmp->next;
 			}
 			printf("  -b\n");
 			tmp = stacks->a_head;
 			while (tmp)
 			{
-				printf("%3d ", tmp->num);
+				printf("{%d}", tmp->num);
 				tmp = tmp->next;
 			}
 			printf("  -a\n");

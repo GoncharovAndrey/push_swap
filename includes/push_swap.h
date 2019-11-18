@@ -88,9 +88,9 @@ void			ft_push_swap_rec(t_stack *stacks, t_rec *rec, t_ps *ps);
 int				ft_a_sorted_ac(t_stack *stacks);
 
 
-int			ft_stacks_min_in(t_stack *stacks);
-int		ft_stacks_min_next_in(t_stack *stacks, int min);
-void		ft_group(t_stack *stacks, int len);
+int			ft_stacks_min_in(t_stack *stacks, int group);
+int		ft_stacks_min_next_in(t_stack *stacks, int min, int group);
+void		ft_group(t_stack *stacks, int len, int group);
 int			ft_max_b(t_stack *stacks);
 void		ft_push_swap_in(t_stack *stacks, t_ps *ps);
 
