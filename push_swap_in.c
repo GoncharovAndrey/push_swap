@@ -136,26 +136,24 @@ int			ft_max_b(t_stack *stacks)
 void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 {
 	int		group;
-//	int		group_next;
-	int		i;
+	int		group_next;
 	int		ra;
 	int		rra;
 	t_array	*tmp;
+	int		i;
 
 	group = 1;
-//	group_next = 2;
+	group_next = 2;
 	while (stacks->size_a != 0)
 	{
-//		printf("group %d\n", group + 1);
-//		printf("%d size a  %d size b\n", stacks->size_a, stacks->size_b);
+		i = 0;
 		if (!ft_find_group(stacks, group))
-			ft_group(stacks, 50, group);
-//		if (!ft_find_group(stacks,group_next))
-//		{
-//			group_next = group + 1;
-//			ft_group(stacks, 20, group_next);
-//		}
-//		i = 0;
+			ft_group(stacks, 5, group);
+		if (!ft_find_group(stacks,group_next))
+		{
+			group_next = group + 1;
+			ft_group(stacks, 5, group_next);
+		}
 		while (ft_find_group(stacks, group))
 		{
 			ra = 0;
@@ -176,24 +174,24 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 			{
 				while (ra-- > 0)
 				{
-//					if (stacks->a_head->group == group_next && stacks->size_b > 0)
-//					{
-//						ps->operation[4](stacks);
-//						ft_putendl_fd(ps->comand[4], 1);
+					if (stacks->a_head->group == group_next && stacks->size_b > 0)
+					{
+						ps->operation[4](stacks);
+						ft_putendl_fd(ps->comand[4], 1);
 ////						ft_print_stacks(stacks);
-//						ra--;
-//						if (ra == 0)
-//							break;
-//						ps->operation[6](stacks);
-//						ft_putendl_fd(ps->comand[6], 1);
-//
+						ps->operation[6](stacks);
+						ft_putendl_fd(ps->comand[6], 1);
+						i++;
+						ra--;
+						if (ra == 0)
+							break;
 ////						ft_print_stacks(stacks);
-//					}
+					}
 //					else
 //					{
 						ps->operation[5](stacks);
 						ft_putendl_fd(ps->comand[5], 1);
-//						ft_print_stacks(stacks);
+////						ft_print_stacks(stacks);
 //					}
 				}
 			}
@@ -201,30 +199,34 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 			{
 				while (rra-- >= 0)
 				{
-//					if (stacks->a_head->group == group_next && stacks->size_b > 0)
-//					{
-//						ps->operation[4](stacks);
-//						ft_putendl_fd(ps->comand[4], 1);
+					if (stacks->a_head->group == group_next && stacks->size_b > 0)
+					{
+						ps->operation[4](stacks);
+						ft_putendl_fd(ps->comand[4], 1);
+////						ft_print_stacks(stacks);
+						ps->operation[6](stacks);
+						ft_putendl_fd(ps->comand[6], 1);
+						i++;
 //						rra--;
 //						if (rra == 0)
 //							break;
 ////						ft_print_stacks(stacks);
-//						ps->operation[6](stacks);
-//						ft_putendl_fd(ps->comand[6], 1);
-//
-////						ft_print_stacks(stacks);
-//					}
+					}
 					ps->operation[8](stacks);
 					ft_putendl_fd(ps->comand[8], 1);
-//					ft_print_stacks(stacks);
+////					ft_print_stacks(stacks);
 				}
 			}
 			ps->operation[4](stacks);
 			ft_putendl_fd(ps->comand[4], 1);
-//			ft_print_stacks(stacks);
-//			i++;
+////			ft_print_stacks(stacks);
 		}
 		group++;
+		while (i-- > 0)
+		{
+			ps->operation[9](stacks);
+			ft_putendl_fd(ps->comand[9], 1);
+		}
 	}
 //	printf("next fall\n");
 	while (stacks->size_b > 0)
