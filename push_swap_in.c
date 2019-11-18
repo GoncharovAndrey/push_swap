@@ -132,7 +132,7 @@ int			ft_max_b(t_stack *stacks)
 	}
 	return (max_pos);
 }
-
+//int			ft_min_group
 void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 {
 	int		group;
@@ -143,16 +143,16 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 	int		i;
 
 	group = 1;
-	group_next = 2;
+//	group_next = 2;
 	while (stacks->size_a != 0)
 	{
 		i = 0;
 		if (!ft_find_group(stacks, group))
-			ft_group(stacks, 5, group);
-		if (!ft_find_group(stacks,group_next))
+			ft_group(stacks, 25, group);
+		if (!ft_find_group(stacks,group + 1))
 		{
 			group_next = group + 1;
-			ft_group(stacks, 5, group_next);
+			ft_group(stacks, 25, group_next);
 		}
 		while (ft_find_group(stacks, group))
 		{
@@ -174,61 +174,76 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 			{
 				while (ra-- > 0)
 				{
-					if (stacks->a_head->group == group_next && stacks->size_b > 0)
+					while (stacks->a_head->group == group_next/* && stacks->size_b > 0*/)
 					{
 						ps->operation[4](stacks);
 						ft_putendl_fd(ps->comand[4], 1);
 ////						ft_print_stacks(stacks);
-						ps->operation[6](stacks);
-						ft_putendl_fd(ps->comand[6], 1);
+						ra -= 1;
+						if (group_next % 2 == 0)
+						{
+							if (ra > 0 && stacks->a_head->group != group_next)
+							{
+								ps->operation[7](stacks);
+								ft_putendl_fd(ps->comand[7], 1);
+								ra -= 1;
+							}
+							else
+							{
+								ps->operation[6](stacks);
+								ft_putendl_fd(ps->comand[6], 1);
+							}
+						}
 						i++;
-						ra--;
-						if (ra == 0)
-							break;
-////						ft_print_stacks(stacks);
+//////						ft_print_stacks(stacks);
 					}
-//					else
-//					{
+					if (stacks->a_head->group != group)
+					{
 						ps->operation[5](stacks);
 						ft_putendl_fd(ps->comand[5], 1);
+					}
 ////						ft_print_stacks(stacks);
-//					}
 				}
 			}
 			else
 			{
 				while (rra-- >= 0)
 				{
-					if (stacks->a_head->group == group_next && stacks->size_b > 0)
+					while (stacks->a_head->group == group_next/* && stacks->size_b > 0*/)
 					{
 						ps->operation[4](stacks);
 						ft_putendl_fd(ps->comand[4], 1);
 ////						ft_print_stacks(stacks);
-						ps->operation[6](stacks);
-						ft_putendl_fd(ps->comand[6], 1);
+						if (group_next % 2 == 0)
+						{
+							ps->operation[6](stacks);
+							ft_putendl_fd(ps->comand[6], 1);
+						}
 						i++;
-//						rra--;
-//						if (rra == 0)
-//							break;
 ////						ft_print_stacks(stacks);
 					}
-					ps->operation[8](stacks);
-					ft_putendl_fd(ps->comand[8], 1);
+						ps->operation[8](stacks);
+						ft_putendl_fd(ps->comand[8], 1);
 ////					ft_print_stacks(stacks);
 				}
 			}
 			ps->operation[4](stacks);
 			ft_putendl_fd(ps->comand[4], 1);
+			if (group % 2 == 0)
+			{
+				ps->operation[6](stacks);
+				ft_putendl_fd(ps->comand[6], 1);
+			}
 ////			ft_print_stacks(stacks);
 		}
 		group++;
-		while (i-- > 0)
-		{
-			ps->operation[9](stacks);
-			ft_putendl_fd(ps->comand[9], 1);
-		}
+
+//		while (i-- > 0)
+//		{
+//			ps->operation[9](stacks);
+//			ft_putendl_fd(ps->comand[9], 1);
+//		}
 	}
-//	printf("next fall\n");
 	while (stacks->size_b > 0)
 	{
 		ra = ft_max_b(stacks);
