@@ -251,5 +251,5 @@ int		main(int ac, char **av)
 		i++;
 	}*/
 //	ft_is_sorted(&stacks, ac);
-	return (1);
+	return (0);
 }

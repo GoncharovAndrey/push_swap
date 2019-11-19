@@ -30,13 +30,23 @@ int			ft_find_group(t_stack *stacks, int group)
 	while (tmp != NULL)
 	{
 		if (tmp->group == group)
-		{
-//			printf("%d yes group\n", group);
 			return (1);
-		}
 		tmp = tmp->next;
 	}
-//	printf("%d no group\n", group);
+	return (0);
+}
+
+int			ft_find_group_b(t_stack *stacks, int group)
+{
+	t_array	*tmp;
+
+	tmp = stacks->b_head;
+	while (tmp != NULL)
+	{
+		if (tmp->group == group)
+			return (1);
+		tmp = tmp->next;
+	}
 	return (0);
 }
 
@@ -109,30 +119,33 @@ void		ft_group(t_stack *stacks, int len, int group)
 	}
 }
 
-int			ft_max_b(t_stack *stacks)
+int		ft_max_b(t_stack *stacks, int group)
 {
-	int		max_pos;
-	int		max;
-	int		i;
 	t_array	*tmp;
+	t_array	*m;
+	int		max;
 
-	max_pos = 0;
-	i = 0;
 	tmp = stacks->b_head;
-	max = stacks->b_head->num;
-	while (tmp)
+	while (tmp->group != 0 && tmp != stacks->b_end)
+		tmp = tmp->next;
+	max = tmp->num;
+	m = tmp;
+	m->group = group;
+	while (tmp != stacks->b_end)
 	{
-		if (max < tmp->num)
+		if (max < tmp->next->num && tmp->next->group == 0)
 		{
-			max = tmp->num;
-			max_pos = i;
+			max = tmp->next->num;
+			m->group = 0;
+			m = tmp->next;
+			m->group = group;
 		}
 		tmp = tmp->next;
-		i++;
 	}
-	return (max_pos);
+	return (max);
 }
-//int			ft_min_group
+
+
 void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 {
 	int		group;
@@ -177,7 +190,8 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 					while (stacks->a_head->group == group_next/* && stacks->size_b > 0*/)
 					{
 						ps->operation[4](stacks);
-						ft_putendl_fd(ps->comand[4], 1);
+						printf("%s\n", ps->comand[4]);
+//						ft_putendl_fd(ps->comand[4], 1);
 ////						ft_print_stacks(stacks);
 						ra -= 1;
 						if (group_next % 2 == 0)
@@ -185,13 +199,15 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 							if (ra > 0 && stacks->a_head->group != group_next)
 							{
 								ps->operation[7](stacks);
-								ft_putendl_fd(ps->comand[7], 1);
+								printf("%s\n", ps->comand[7]);
+//								ft_putendl_fd(ps->comand[7], 1);
 								ra -= 1;
 							}
 							else
 							{
 								ps->operation[6](stacks);
-								ft_putendl_fd(ps->comand[6], 1);
+								printf("%s\n", ps->comand[6]);
+//								ft_putendl_fd(ps->comand[6], 1);
 							}
 						}
 						i++;
@@ -200,7 +216,8 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 					if (stacks->a_head->group != group)
 					{
 						ps->operation[5](stacks);
-						ft_putendl_fd(ps->comand[5], 1);
+						printf("%s\n", ps->comand[5]);
+//						ft_putendl_fd(ps->comand[5], 1);
 					}
 ////						ft_print_stacks(stacks);
 				}
@@ -212,29 +229,35 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 					while (stacks->a_head->group == group_next/* && stacks->size_b > 0*/)
 					{
 						ps->operation[4](stacks);
-						ft_putendl_fd(ps->comand[4], 1);
+						printf("%s\n", ps->comand[4]);
+//						ft_putendl_fd(ps->comand[4], 1);
 ////						ft_print_stacks(stacks);
 						if (group_next % 2 == 0)
 						{
 							ps->operation[6](stacks);
-							ft_putendl_fd(ps->comand[6], 1);
+							printf("%s\n", ps->comand[6]);
+//							ft_putendl_fd(ps->comand[6], 1);
+////						ft_print_stacks(stacks);
 						}
 						i++;
 ////						ft_print_stacks(stacks);
 					}
 						ps->operation[8](stacks);
-						ft_putendl_fd(ps->comand[8], 1);
+						printf("%s\n", ps->comand[8]);
+//						ft_putendl_fd(ps->comand[8], 1);
 ////					ft_print_stacks(stacks);
 				}
 			}
 			ps->operation[4](stacks);
-			ft_putendl_fd(ps->comand[4], 1);
+			printf("%s\n", ps->comand[4]);
+//			ft_putendl_fd(ps->comand[4], 1);
 			if (group % 2 == 0)
 			{
 				ps->operation[6](stacks);
-				ft_putendl_fd(ps->comand[6], 1);
-			}
+				printf("%s\n", ps->comand[6]);
+//				ft_putendl_fd(ps->comand[6], 1);
 ////			ft_print_stacks(stacks);
+			}
 		}
 		group++;
 
@@ -244,26 +267,69 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 //			ft_putendl_fd(ps->comand[9], 1);
 //		}
 	}
+	tmp = stacks->b_head;
+
+	while (tmp)
+	{
+		tmp->group = 0;
+		tmp = tmp->next;
+	}
+
 	while (stacks->size_b > 0)
 	{
-		ra = ft_max_b(stacks);
+		if (!(ft_find_group_b(stacks, 1)))
+			ft_max_b(stacks, 1);
+		tmp = stacks->b_head;
+		ra = 0;
+		while (tmp->group != 1)
+		{
+			ra++;
+			tmp = tmp->next;
+		}
 		rra = stacks->size_b - ra;
+		if (stacks->size_b > 1)
+			ft_max_b(stacks, 1);
 		if (ra <= rra)
 		{
 			while (ra-- > 0)
 			{
-				ps->operation[6](stacks);
-				ft_putendl_fd(ps->comand[6], 1);
+				if (stacks->b_head->group == 1)
+				{
+					ps->operation[3](stacks);
+					printf("%s\n", ps->comand[3]);
+//					ft_putendl_fd(ps->comand[3], 1);
+					ra--;
+				}
+				if (stacks->b_head->group != 1)
+				{
+					ps->operation[6](stacks);
+					printf("%s\n", ps->comand[6]);
+//					ft_putendl_fd(ps->comand[6], 1);
+				}
 			}
 		}
 		else{
 			while  (rra-- > 0)
 			{
+				if (stacks->b_head->group == 1)
+				{
+					ps->operation[3](stacks);
+					printf("%s\n", ps->comand[3]);
+//					ft_putendl_fd(ps->comand[3], 1);
+				}
 				ps->operation[9](stacks);
-				ft_putendl_fd(ps->comand[9], 1);
+				printf("%s\n", ps->comand[9]);
+//				ft_putendl_fd(ps->comand[9], 1);
 			}
 		}
 		ps->operation[3](stacks);
-		ft_putendl_fd(ps->comand[3], 1);
+		printf("%s\n", ps->comand[3]);
+//		ft_putendl_fd(ps->comand[3], 1);
+		if ( stacks->size_a > 1 && stacks->a_head->num > stacks->a_head->next->num)
+		{
+			ps->operation[0](stacks);
+			printf("%s\n", ps->comand[0]);
+//			ft_putendl_fd(ps->comand[0], 1);
+		}
 	}
 }
