@@ -238,6 +238,8 @@ int		main(int ac, char **av)
 	}
 
 	ft_push_swap_in(&stacks,&ps);
+
+//	ft_push_swap_av(&stacks,&ps);
 //	ft_push_swap(&stacks, &ps);
 /*	t_rec	rec;
 	ft_init_rec(&rec, &ps, ac * 10);
