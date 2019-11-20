@@ -60,7 +60,7 @@ class PsGui:
 		self.ResetCtl = Button(self.butframe, text="R", command=self.reset)
 		self.ResetCtl.pack(side=LEFT)
 		self.listbox = Listbox(self.toolframe, bg='black', fg='light cyan',
-							   font = ("monospace", 12), relief = FLAT)
+							   font = ("monospace", 10), relief = FLAT)
 		self.listbox.pack(fill=BOTH, expand=1)
 		for cmd in self.cmds:
 			self.listbox.insert(END, cmd)
