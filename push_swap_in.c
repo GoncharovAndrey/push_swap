@@ -27,7 +27,7 @@ void		ft_print_stacks(t_stack *stacks)
 		}
 		printf("\n");
 	}
-	printf("\n");
+	printf("_______________________\\n");
 }
 
 void		ft_print_operation(t_stack *stacks, t_ps *ps, int num)
@@ -155,6 +155,31 @@ void	ft_clean_stacks(t_stack *stacks)
 	}
 }
 
+int			ft_which_way(t_stack *stacks, int group, char st)
+{
+	int		ra;
+	int		rra;
+	t_array	*tmp;
+
+	ra = 0;
+	rra = 0;
+	tmp = (st == 'a') ? stacks->a_head : stacks->b_head;
+	while (tmp->group != group)
+	{
+		tmp = tmp->next;
+		ra++;
+	}
+	tmp = (st == 'a') ? stacks->a_end : stacks->b_end;
+	while (tmp->group != group)
+	{
+		tmp = tmp->prev;
+		rra++;
+	}
+	if (ra <= rra + 1)
+		return (1);
+	return (0);
+}
+
 
 int			ft_avr_a(t_stack *stacks, t_ps *ps, int size)
 {
@@ -177,68 +202,59 @@ int			ft_avr_a(t_stack *stacks, t_ps *ps, int size)
 	return (size);
 }
 
-int			ft_avr_nb(t_stack *stacks, t_ps *ps, int size)
+void		ft_ra_for_nb(t_stack *stacks, t_ps *ps, int group, int group_next)
 {
-	int		group;
-	int		group_next;
-	int		ra;
-	int		rra;
-	t_array	*tmp;
+	while (stacks->b_head->group != group)
+	{
+		while (stacks->b_head->group == group_next)
+		{
+			ft_print_operation(stacks, ps, 3);
+			if (group_next % 2 == 0) {
+				if (stacks->a_head->group != group_next && stacks->a_head->group != group)
+					ft_print_operation(stacks, ps, 7);
+				else
+					ft_print_operation(stacks, ps, 5);
+			}
+		}
+		if (stacks->b_head->group != group)
+			ft_print_operation(stacks, ps, 6);
+	}
+}
 
-	group = 1;
-	size /= 5;
-	while (stacks->size_b != 0) {
+void		ft_rra_for_nb(t_stack *stacks, t_ps *ps, int group, int group_next)
+{
+	while (stacks->b_head->group != group)
+	{
+		while (stacks->b_head->group == group_next)
+		{
+			ft_print_operation(stacks, ps, 3);
+			if (group_next % 2 == 0)
+				ft_print_operation(stacks, ps, 5);
+		}
+		ft_print_operation(stacks, ps, 9);
+	}
+}
+
+
+int			ft_avr_nb(t_stack *stacks, t_ps *ps, int size, int group)
+{
+	int		group_next;
+
+	while (stacks->size_b != 0)
+	{
 		if (!(ft_find_group_b(stacks, group)))
 			ft_group_b(stacks, size, group);
-		if (!ft_find_group_b(stacks, group + 1)) {
+		if (!ft_find_group_b(stacks, group + 1))
+		{
 			group_next = group + 1;
 			ft_group_b(stacks, size, group_next);
 		}
-		while (ft_find_group_b(stacks, group)) {
-			ra = 0;
-			rra = 0;
-			tmp = stacks->b_head;
-			while (tmp->group != group) {
-				tmp = tmp->next;
-				ra++;
-			}
-			tmp = stacks->b_end;
-			while (tmp->group != group) {
-				tmp = tmp->prev;
-				rra++;
-			}
-			if (ra <= rra + 1)
-			{
-				while (stacks->b_head->group != group)
-				{
-					while (stacks->b_head->group == group_next)
-					{
-						ft_print_operation(stacks, ps, 3);
-						if (group_next % 2 == 0)
-						{
-							if (stacks->a_head->group != group_next && stacks->a_head->group != group)
-								ft_print_operation(stacks, ps, 7);
-							else
-								ft_print_operation(stacks, ps, 5);
-						}
-					}
-					if (stacks->b_head->group != group)
-						ft_print_operation(stacks, ps, 6);
-				}
-			}
+		while (ft_find_group_b(stacks, group))
+		{
+			if (ft_which_way(stacks, group, 'b'))
+				ft_ra_for_nb(stacks, ps, group, group_next);
 			else
-			{
-				while (stacks->b_head->group != group)
-				{
-					while (stacks->b_head->group == group_next)
-					{
-						ft_print_operation(stacks, ps, 3);
-						if (group_next % 2 == 0)
-							ft_print_operation(stacks, ps, 5);
-					}
-					ft_print_operation(stacks, ps, 9);
-				}
-			}
+				ft_rra_for_nb(stacks, ps, group, group_next);
 			ft_print_operation(stacks, ps, 3);
 			if (group % 2 == 0)
 				ft_print_operation(stacks, ps, 5);
@@ -249,16 +265,44 @@ int			ft_avr_nb(t_stack *stacks, t_ps *ps, int size)
 	return (size);
 }
 
-int			ft_avr_na(t_stack *stacks, t_ps *ps, int size)
+void		ft_ra_for_na(t_stack *stacks, t_ps *ps, int group, int group_next)
 {
-	int		group;
-	int		group_next;
-	int		ra;
-	int		rra;
-	t_array	*tmp;
+	while (stacks->a_head->group != group)
+	{
+		while (stacks->a_head->group == group_next)
+		{
+			ft_print_operation(stacks, ps, 4);
+			if (group_next % 2 == 0)
+			{
+				if (stacks->a_head->group != group && stacks->a_head->group != group_next)
+					ft_print_operation(stacks, ps, 7);
+				else
+					ft_print_operation(stacks, ps, 6);
+			}
+		}
+		if (stacks->a_head->group != group)
+			ft_print_operation(stacks, ps, 5);
+	}
+}
 
-	group = 1;
-	size /= 5;
+void		ft_rra_for_na(t_stack *stacks, t_ps *ps, int group, int group_next)
+{
+	while (stacks->a_head->group != group)
+	{
+		while (stacks->a_head->group == group_next)
+		{
+			ft_print_operation(stacks, ps, 4);
+			if (group_next % 2 == 0)
+				ft_print_operation(stacks, ps, 6);
+		}
+		ft_print_operation(stacks, ps, 8);
+	}
+}
+
+
+int			ft_avr_na(t_stack *stacks, t_ps *ps, int size, int group)
+{
+	int		group_next;
 
 	while (stacks->size_a != 0)
 	{
@@ -271,52 +315,10 @@ int			ft_avr_na(t_stack *stacks, t_ps *ps, int size)
 		}
 		while (ft_find_group(stacks, group))
 		{
-			ra = 0;
-			rra = 0;
-			tmp = stacks->a_head;
-			while (tmp->group != group)
-			{
-				tmp = tmp->next;
-				ra++;
-			}
-			tmp = stacks->a_end;
-			while (tmp->group != group)
-			{
-				tmp = tmp->prev;
-				rra++;
-			}
-			if (ra <= rra + 1)
-			{
-				while (stacks->a_head->group != group)
-				{
-					while (stacks->a_head->group == group_next)
-					{
-						ft_print_operation(stacks, ps, 4);
-						if (group_next % 2 == 0)
-						{
-							if (stacks->a_head->group != group && stacks->a_head->group != group_next)
-								ft_print_operation(stacks, ps, 7);
-							else
-								ft_print_operation(stacks, ps, 6);
-						}
-					}
-					if (stacks->a_head->group != group)
-						ft_print_operation(stacks, ps, 5);
-				}
-			}
+			if (ft_which_way(stacks, group, 'a'))
+				ft_ra_for_na(stacks, ps, group, group_next);
 			else
-			{
-				while (stacks->a_head->group != group)
-				{
-					while (stacks->a_head->group == group_next)
-					{
-						ft_print_operation(stacks, ps, 4);
-						if (group_next % 2 == 0)
-							ft_print_operation(stacks, ps, 6);
-					}
-					ft_print_operation(stacks, ps, 8);
-				}
-			}
+				ft_rra_for_na(stacks, ps, group, group_next);
 			ft_print_operation(stacks, ps, 4);
 			if (group % 2 == 0)
 				ft_print_operation(stacks, ps, 6);
@@ -325,6 +327,32 @@ int			ft_avr_na(t_stack *stacks, t_ps *ps, int size)
 	}
 	ft_clean_stacks(stacks);
 	return (size);
+}
+
+void		ft_ra_rra_for_insert_sort_b(t_stack *stacks, t_ps *ps, int ra, int rra)
+{
+	if (ra <= rra)
+	{
+		while (ra-- > 0)
+		{
+			if (stacks->b_head->group == 1)
+			{
+				ft_print_operation(stacks, ps, 3);
+				ra--;
+			}
+			if (stacks->b_head->group != 1)
+				ft_print_operation(stacks, ps, 6);
+		}
+	}
+	else
+	{
+		while  (rra-- > 0)
+		{
+			if (stacks->b_head->group == 1)
+				ft_print_operation(stacks, ps, 3);
+			ft_print_operation(stacks, ps, 9);
+		}
+	}
 }
 
 void		ft_insert_sort_b(t_stack *stacks, t_ps *ps)
@@ -347,28 +375,7 @@ void		ft_insert_sort_b(t_stack *stacks, t_ps *ps)
 		rra = stacks->size_b - ra;
 		if (stacks->size_b > 1)
 			ft_max_b(stacks, 1);
-		if (ra <= rra)
-		{
-			while (ra-- > 0)
-			{
-				if (stacks->b_head->group == 1)
-				{
-					ft_print_operation(stacks, ps, 3);
-					ra--;
-				}
-				if (stacks->b_head->group != 1)
-					ft_print_operation(stacks, ps, 6);
-			}
-		}
-		else
-		{
-			while  (rra-- > 0)
-			{
-				if (stacks->b_head->group == 1)
-					ft_print_operation(stacks, ps, 3);
-				ft_print_operation(stacks, ps, 9);
-			}
-		}
+		ft_ra_rra_for_insert_sort_b(stacks, ps, ra, rra);
 		ft_print_operation(stacks, ps, 3);
 		if ( stacks->size_a > 1 && stacks->a_head->num > stacks->a_head->next->num)
 			ft_print_operation(stacks, ps, 0);
@@ -380,12 +387,14 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 	int		i;
 
 	if (stacks->size_a / 2 < 124)
-		ft_avr_na(stacks, ps, 70);
-	else {
+		ft_avr_na(stacks, ps, 70, 1);
+	else
+	{
 		i = ft_avr_a(stacks, ps, stacks->size_a);
-		while (i > 50) {
-			i = ft_avr_nb(stacks, ps, i);
-			i = ft_avr_na(stacks, ps, i);
+		while (i > 50)
+		{
+			i = ft_avr_nb(stacks, ps, i / 5, 1);
+			i = ft_avr_na(stacks, ps, i / 5, 1);
 		}
 	}
 	ft_insert_sort_b(stacks, ps);
