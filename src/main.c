@@ -19,7 +19,7 @@ void		ft_is_sorted(t_stack *stacks, int ac)
 
 	if (stacks->size_a != ac)
 	{
-		ft_putstr_fd("KO\n", 0);
+		ft_putstr_fd("KO\n", 1);
 		return ;
 	}
 	tmp = stacks->a_head;
@@ -27,7 +27,7 @@ void		ft_is_sorted(t_stack *stacks, int ac)
 	{
 		if (tmp->num > tmp->next->num)
 		{
-			ft_putstr_fd("KO\n", 0);
+			ft_putstr_fd("KO\n", 1);
 			return ;
 		}
 		tmp = tmp->next;
@@ -64,8 +64,9 @@ int		main(int ac, char **av)
 	if (!(ft_init_comand(&ps)))
 		return (0);
 	ft_init_operation(&ps);
-	if (!(ft_read_do(&ps, &stacks, av[1])))
+	if(!(ft_read_do(&ps, &stacks, av[1])))
 		return (0);
 	ft_is_sorted(&stacks, ac);
-	return (1);
+	ft_del_list(&stacks);
+	return (0);
 }

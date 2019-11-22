@@ -33,19 +33,19 @@ typedef struct	s_stack
 	int			size_b;
 }				t_stack;
 
-typedef struct	s_recurse
-{
-	int			*arr_com;
-	int			*arr_res;
-	int			lenght;
-	int			i;
-}				t_rec;
+//typedef struct	s_recurse
+//{
+//	int			*arr_com;
+//	int			*arr_res;
+//	int			lenght;
+//	int			i;
+//}				t_rec;
 
 typedef struct	s_push_swap
 {
-	char		*comand[11];
+	char		**comand;
 	void		(*operation[11])(t_stack *stacks);
-	int			(*oper[11])(t_stack *stacks, t_rec *rec);
+//	int			(*oper[11])(t_stack *stacks, t_rec *rec);
 }				t_ps;
 
 
@@ -72,23 +72,26 @@ void			ft_del_list(t_stack *stacks);
 t_array			*ft_create_elem(void);
 
 
-void			ft_init_rec(t_rec *rec, t_ps *ps, int len);
-int				ft_sa_rec(t_stack *stacks, t_rec *rec);
-int				ft_sb_rec(t_stack *stacks, t_rec *rec);
-int				ft_ss_rec(t_stack *stacks, t_rec *rec);
-int				ft_pa_rec(t_stack *stacks, t_rec *rec);
-int				ft_pb_rec(t_stack *stacks, t_rec *rec);
-int				ft_ra_rec(t_stack *stacks, t_rec *rec);
-int				ft_rb_rec(t_stack *stacks, t_rec *rec);
-int				ft_rr_rec(t_stack *stacks, t_rec *rec);
-int				ft_rra_rec(t_stack *stacks, t_rec *rec);
-int				ft_rrb_rec(t_stack *stacks, t_rec *rec);
-int				ft_rrr_rec(t_stack *stacks, t_rec *rec);
-void			ft_push_swap_rec(t_stack *stacks, t_rec *rec, t_ps *ps);
-int				ft_a_sorted_ac(t_stack *stacks);
+//void			ft_init_rec(t_rec *rec, t_ps *ps, int len);
+//int				ft_sa_rec(t_stack *stacks, t_rec *rec);
+//int				ft_sb_rec(t_stack *stacks, t_rec *rec);
+//int				ft_ss_rec(t_stack *stacks, t_rec *rec);
+//int				ft_pa_rec(t_stack *stacks, t_rec *rec);
+//int				ft_pb_rec(t_stack *stacks, t_rec *rec);
+//int				ft_ra_rec(t_stack *stacks, t_rec *rec);
+//int				ft_rb_rec(t_stack *stacks, t_rec *rec);
+//int				ft_rr_rec(t_stack *stacks, t_rec *rec);
+//int				ft_rra_rec(t_stack *stacks, t_rec *rec);
+//int				ft_rrb_rec(t_stack *stacks, t_rec *rec);
+//int				ft_rrr_rec(t_stack *stacks, t_rec *rec);
+//void			ft_push_swap_rec(t_stack *stacks, t_rec *rec, t_ps *ps);
+//int				ft_a_sorted_ac(t_stack *stacks);
 
 
 void		ft_push_swap_in(t_stack *stacks, t_ps *ps);
+int			ft_duplicate_stack(t_stack *stacks);
+int			ft_a_sorted(t_stack *stacks);
+
 
 #endif
 

@@ -28,25 +28,20 @@ t_array			*ft_create_elem(void)
 void			ft_del_list(t_stack *stacks)
 {
 	t_array		*tmp;
+	t_array		*tmp2;
 
-	while (stacks->a_head->next)
+	while (stacks->a_head)
 	{
 		tmp = stacks->a_head;
 		stacks->a_head = stacks->a_head->next;
 		free(tmp);
 	}
-	while (stacks->b_head->next)
+	while (stacks->b_head)
 	{
 		tmp = stacks->b_head;
 		stacks->b_head = stacks->b_head->next;
 		free(tmp);
 	}
-	free(stacks->a_head);
-	free(stacks->b_head);
-//	stacks->a_head = NULL;
-//	stacks->b_head = NULL;
-//	stacks->a_end = NULL;
-//	stacks->b_end = NULL;
 }
 
 int			ft_create_list(t_stack *stacks, int ac)

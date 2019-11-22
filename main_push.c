@@ -28,6 +28,30 @@ int		ft_a_sorted(t_stack *stacks)
 	}
 	return (1);
 }
+
+int		ft_duplicate_stack(t_stack *stacks)
+{
+	t_array	*tmp;
+	t_array	*number;
+
+	number = stacks->a_head;
+	while (number != stacks->a_end)
+	{
+		tmp = number->next;
+		while (tmp != stacks->a_end->next)
+		{
+			if (number->num == tmp->num)
+				return (0);
+			tmp = tmp->next;
+		}
+		number = number->next;
+	}
+	return (1);
+}
+
+
+
+
 /*
 int		ft_b_sorted(t_stack *stacks)
 {
@@ -184,25 +208,27 @@ void		ft_push_swap(t_stack *stacks, t_ps *ps)
 		ft_putendl_fd(ps->comand[3], 1);
 	}
 }
-int		ft_duplicate_stack(t_stack *stacks)
-{
-	t_array	*tmp;
-	t_array	*number;
 
-	number = stacks->a_head;
-	while (number != stacks->a_end)
-	{
-		tmp = number->next;
-		while (tmp != stacks->a_end->next)
-		{
-			if (number->num == tmp->num)
-				return (0);
-			tmp = tmp->next;
-		}
-		number = number->next;
-	}
-	return (1);
-}
+//int		ft_duplicate_stack(t_stack *stacks)
+//{
+//	t_array	*tmp;
+//	t_array	*number;
+//
+//	number = stacks->a_head;
+//	while (number != stacks->a_end)
+//	{
+//		tmp = number->next;
+//		while (tmp != stacks->a_end->next)
+//		{
+//			if (number->num == tmp->num)
+//				return (0);
+//			tmp = tmp->next;
+//		}
+//		number = number->next;
+//	}
+//	return (1);
+//}
+
 int		main(int ac, char **av)
 {
 	t_stack	stacks;
@@ -228,8 +254,10 @@ int		main(int ac, char **av)
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
+
 	if (!(ft_init_comand(&ps)))
 		return (0);
+
 	ft_init_operation(&ps);
 	if (!(ft_duplicate_stack(&stacks)))
 	{
@@ -237,8 +265,18 @@ int		main(int ac, char **av)
 		return (0);
 	}
 
-	ft_push_swap_in(&stacks,&ps);
 
+		ft_push_swap_in(&stacks,&ps);
+		ft_del_list(&stacks);
+		int		i;
+
+		i = -1;
+		while (++i < 11)
+		{
+			free(ps.comand[i]);
+		}
+		free(ps.comand);
+		ft_putstr("\033[1;31m Example \033[0m ura!");
 //	ft_push_swap_av(&stacks,&ps);
 //	ft_push_swap(&stacks, &ps);
 /*	t_rec	rec;
