@@ -1,34 +1,6 @@
 #include "includes/push_swap.h"
 #include <stdio.h>
 
-void		ft_print_stacks(t_stack *stacks)
-{
-	t_array	*tmp;
-	t_array	*tmp_b;
-
-	tmp = stacks->a_head;
-	tmp_b = stacks->b_head;
-	printf("%9s  |%9s\n", "stack A","stack B");
-	printf("_______________________\n");
-	while (tmp || tmp_b)
-	{
-		if (tmp)
-		{
-			printf("%10d ", tmp->num);
-			tmp = tmp->next;
-		}
-		else
-			printf("%11c", ' ');
-		printf("|");
-		if (tmp_b)
-		{
-			printf("%10d ", tmp_b->num);
-			tmp_b = tmp_b->next;
-		}
-		printf("\n");
-	}
-	printf("_______________________\\n");
-}
 
 void		ft_print_operation(t_stack *stacks, t_ps *ps, int num)
 {
@@ -382,7 +354,7 @@ void		ft_insert_sort_b(t_stack *stacks, t_ps *ps)
 	}
 }
 
-void		ft_push_swap_little(t_stack *stacks, t_ps *ps)
+void		ft_push_swap_abc(t_stack *stacks, t_ps *ps)
 {
 	if (stacks->a_head->num > stacks->a_head->next->num)
 		ft_print_operation(stacks, ps, 0);
@@ -393,16 +365,11 @@ void		ft_push_swap_little(t_stack *stacks, t_ps *ps)
 		ft_print_operation(stacks, ps, 0);
 }
 
-
-void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
+void		ft_push_swap_little(t_stack *stacks, t_ps *ps)
 {
-	int		i;
-
-	if (ft_a_sorted(stacks))
-		return;
 	if (stacks->size_a <= 3)
 	{
-		ft_push_swap_little(stacks, ps);
+		ft_push_swap_abc(stacks, ps);
 		return;
 	}
 	if (stacks->size_a <= 5)
@@ -413,8 +380,22 @@ void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
 			ft_insert_sort_b(stacks, ps);
 			return;
 		}
-		ft_push_swap_little(stacks, ps);
+		ft_push_swap_abc(stacks, ps);
 		ft_insert_sort_b(stacks, ps);
+		return;
+	}
+}
+
+
+void		ft_push_swap_in(t_stack *stacks, t_ps *ps)
+{
+	int		i;
+
+	if (ft_a_sorted(stacks))
+		return;
+	if (stacks->size_a <= 5)
+	{
+		ft_push_swap_little(stacks, ps);
 		return;
 	}
 	if (stacks->size_a / 2 < 124)

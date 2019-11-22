@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
+#include <stdio.h>
 int			ft_is_number(char *num)
 {
 	int		i;
@@ -63,31 +63,24 @@ int				ft_init_stack(t_stack *stacks, int ac, char **av)
 	return (1);
 }
 
-int			ft_init_comand(t_ps *ps)
+void		ft_init_comand(t_ps *ps)
 {
-	int			index;
+	ps->comand[0] = "sa";
+	ps->comand[1] = "sb";
+	ps->comand[2] = "ss";
+	ps->comand[3] = "pa";
+	ps->comand[4] = "pb";
+	ps->comand[5] = "ra";
+	ps->comand[6] = "rb";
+	ps->comand[7] = "rr";
+	ps->comand[8] = "rra";
+	ps->comand[9] = "rrb";
+	ps->comand[10] = "rrr";
+}
 
-	index = 0;
-	ps->comand =(char**)ft_memalloc(sizeof(char*) * 11);
-//	while (index < 11)
-//	{
-//		if (!(ps->comand[index] = ft_strnew(4)))
-//		{
-//			ft_putstr_fd("Error\n", 2);
-//			return (0);
-//		}
-//		index++;
-//	}
-	ps->comand[0] = ft_strdup("sa");
-	ps->comand[1] = ft_strdup("sb");
-	ps->comand[2] = ft_strdup("ss");
-	ps->comand[3] = ft_strdup("pa");
-	ps->comand[4] = ft_strdup("pb");
-	ps->comand[5] = ft_strdup("ra");
-	ps->comand[6] = ft_strdup("rb");
-	ps->comand[7] = ft_strdup("rr");
-	ps->comand[8] = ft_strdup("rra");
-	ps->comand[9] = ft_strdup("rrb");
-	ps->comand[10] = ft_strdup("rrr");
-	return (1);
+
+void		ft_init_ps(t_ps *ps)
+{
+	ft_init_comand(ps);
+	ft_init_operation(ps);
 }

@@ -53,11 +53,6 @@ int			ft_create_list(t_stack *stacks, int ac)
 		return (0);
 	stacks->b_head = NULL;
 	stacks->b_end = NULL;
-/*	if (!(stacks->b_head = ft_create_elem()))
-	{
-		free(stacks->a_head);
-		return (0);
-	}*/
 	lst = stacks->a_head;
 	stacks->a_end = stacks->a_head;
 	while (--ac > 0)

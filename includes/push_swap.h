@@ -43,9 +43,9 @@ typedef struct	s_stack
 
 typedef struct	s_push_swap
 {
-	char		**comand;
+	char		*comand[11];
 	void		(*operation[11])(t_stack *stacks);
-//	int			(*oper[11])(t_stack *stacks, t_rec *rec);
+	int			v;
 }				t_ps;
 
 
@@ -64,9 +64,9 @@ int				ft_read_do(t_ps *ps, t_stack *stacks, char *av);
 int				ft_number_operation(char *stdin, t_ps *ps);
 void			ft_init_operation(t_ps *ps);
 int				ft_init_stack(t_stack *stacks, int ac, char **av);
-int				ft_init_comand(t_ps *ps);
+void			ft_init_comand(t_ps *ps);
 int				ft_is_number(char *num);
-void			ft_is_sorted(t_stack *stacks, int ac);
+void			ft_is_sorted(t_stack *stacks, t_ps *ps, int ac);
 int				ft_create_list(t_stack *stacks, int ac);
 void			ft_del_list(t_stack *stacks);
 t_array			*ft_create_elem(void);
@@ -91,6 +91,8 @@ t_array			*ft_create_elem(void);
 void		ft_push_swap_in(t_stack *stacks, t_ps *ps);
 int			ft_duplicate_stack(t_stack *stacks);
 int			ft_a_sorted(t_stack *stacks);
+void		ft_init_ps(t_ps *ps);
+void		ft_print_stacks(t_stack *stacks, t_ps *ps, int i);
 
 
 #endif
