@@ -16,7 +16,7 @@ void		ft_ra(t_stack *stacks)
 {
 	t_array	*tmp;
 
-	if(stacks->size_a > 1)
+	if (stacks->size_a > 1)
 	{
 		if (stacks->size_a == 2)
 			ft_sa(stacks);
@@ -37,7 +37,7 @@ void		ft_rb(t_stack *stacks)
 {
 	t_array	*tmp;
 
-	if(stacks->size_b > 1)
+	if (stacks->size_b > 1)
 	{
 		if (stacks->size_b == 2)
 			ft_sb(stacks);

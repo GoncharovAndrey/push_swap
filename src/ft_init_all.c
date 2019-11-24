@@ -11,14 +11,12 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include <stdio.h>
 #include <limits.h>
 
-
-int		ft_duplicate_stack(t_stack *stacks)
+int				ft_duplicate_stack(t_stack *stacks)
 {
-	t_array	*tmp;
-	t_array	*number;
+	t_array		*tmp;
+	t_array		*number;
 
 	number = stacks->a_head;
 	while (number != stacks->a_end)
@@ -35,7 +33,7 @@ int		ft_duplicate_stack(t_stack *stacks)
 	return (1);
 }
 
-int	ft_atoi_max(const char *nptr, int *flag)
+int				ft_atoi_max(const char *nptr, int *flag)
 {
 	size_t		i;
 	long int	res;
@@ -48,14 +46,6 @@ int	ft_atoi_max(const char *nptr, int *flag)
 		i++;
 	z = nptr[i] == '-' ? -1 : 1;
 	i = nptr[i] == '-' || nptr[i] == '+' ? i + 1 : i + 0;
-
-//	if (nptr[i] == '-')
-//	{
-//		i++;
-//		z = -1;
-//	}
-//	else if (nptr[i] == '+')
-//		i++;
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		res = res * 10 + (nptr[i] - '0');
@@ -69,9 +59,43 @@ int	ft_atoi_max(const char *nptr, int *flag)
 	return (res * z);
 }
 
-int			ft_is_number(char *num)
+void			ft_del_nav(char **nav, t_ps *ps)
 {
-	int		i;
+	int			i;
+
+	i = 0;
+	if (ps->flag == 1)
+	{
+		while (nav[i])
+		{
+			free(nav[i]);
+			i++;
+		}
+		free(nav);
+	}
+}
+
+int				ft_init_flag(t_ps *ps, char ***nav, char **av, int ac)
+{
+	ps->flag = 0;
+	*nav = !ft_strcmp(av[1], "-v") ? av + 2 : av + 1;
+	ac -= !ft_strcmp(av[1], "-v") ? 2 : 1;
+	ps->v = !ft_strcmp(av[1], "-v") ? 1 : 0;
+	if (ac == 1)
+	{
+		if (!(*nav = ft_strsplit(*nav[0], 32)))
+			return (0);
+		ac = 0;
+		ps->flag = 1;
+		while (nav[0][ac])
+			ac++;
+	}
+	return (ac);
+}
+
+int				ft_is_number(char *num)
+{
+	int			i;
 
 	i = 0;
 	if (num[i] == '-' || num[i] == '+')
@@ -107,7 +131,7 @@ int				ft_init_stack(t_stack *stacks, int ac, char **av)
 	t_array		*tmp;
 	int			flag;
 
-	if (!(ft_create_list(stacks, ac )))
+	if (!(ft_create_list(stacks, ac)))
 		return (0);
 	stacks->size_a = ac;
 	stacks->size_b = 0;
@@ -129,7 +153,7 @@ int				ft_init_stack(t_stack *stacks, int ac, char **av)
 	return (1);
 }
 
-void		ft_init_comand(t_ps *ps)
+void			ft_init_comand(t_ps *ps)
 {
 	ps->comand[0] = "sa";
 	ps->comand[1] = "sb";
@@ -144,9 +168,19 @@ void		ft_init_comand(t_ps *ps)
 	ps->comand[10] = "rrr";
 }
 
-
-void		ft_init_ps(t_ps *ps)
+int				ft_init_all(t_stack *stacks, t_ps *ps, int ac, char **av)
 {
+	if (!(ft_init_stack(stacks, ac, av)))
+	{
+		ft_putendl_fd("Error", 2);
+		return (0);
+	}
+	if (!(ft_duplicate_stack(stacks)))
+	{
+		ft_putendl_fd("Error", 2);
+		return (0);
+	}
 	ft_init_comand(ps);
 	ft_init_operation(ps);
+	return (1);
 }

@@ -14,6 +14,7 @@
 #define PUSH_SWAP_H
 
 # include "../libft/libft.h"
+# include <limits.h>
 
 typedef struct		s_array
 {
@@ -46,6 +47,7 @@ typedef struct	s_push_swap
 	char		*comand[11];
 	void		(*operation[11])(t_stack *stacks);
 	int			v;
+	int			flag;
 }				t_ps;
 
 
@@ -60,7 +62,7 @@ void			ft_rr(t_stack *stacks);
 void			ft_rra(t_stack *stacks);
 void			ft_rrb(t_stack *stacks);
 void			ft_rrr(t_stack *stacks);
-int				ft_read_do(t_ps *ps, t_stack *stacks, char *av);
+int				ft_read_do(t_ps *ps, t_stack *stacks);
 int				ft_number_operation(char *stdin, t_ps *ps);
 void			ft_init_operation(t_ps *ps);
 int				ft_init_stack(t_stack *stacks, int ac, char **av);
@@ -70,6 +72,7 @@ void			ft_is_sorted(t_stack *stacks, t_ps *ps, int ac);
 int				ft_create_list(t_stack *stacks, int ac);
 void			ft_del_list(t_stack *stacks);
 t_array			*ft_create_elem(void);
+
 
 
 //void			ft_init_rec(t_rec *rec, t_ps *ps, int len);
@@ -91,9 +94,10 @@ t_array			*ft_create_elem(void);
 void		ft_push_swap_in(t_stack *stacks, t_ps *ps);
 int			ft_duplicate_stack(t_stack *stacks);
 int			ft_a_sorted(t_stack *stacks);
-void		ft_init_ps(t_ps *ps);
+int			ft_init_all(t_stack *stacks, t_ps *ps, int ac, char **av);
 void		ft_print_stacks(t_stack *stacks, t_ps *ps, int i);
-
+int			ft_init_flag(t_ps *ps, char ***nav, char **av, int ac);
+void		ft_del_nav(char **nav, t_ps *ps);
 
 #endif
 

@@ -28,7 +28,6 @@ t_array			*ft_create_elem(void)
 void			ft_del_list(t_stack *stacks)
 {
 	t_array		*tmp;
-	t_array		*tmp2;
 
 	while (stacks->a_head)
 	{
@@ -44,7 +43,7 @@ void			ft_del_list(t_stack *stacks)
 	}
 }
 
-int			ft_create_list(t_stack *stacks, int ac)
+int				ft_create_list(t_stack *stacks, int ac)
 {
 	t_array		*tmp;
 	t_array		*lst;

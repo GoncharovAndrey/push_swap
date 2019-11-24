@@ -62,6 +62,7 @@ static int			ft_writing(char **dst, char **line, int fd, int ret)
 	if (ret == 0 && (dst[fd] == NULL || dst[fd][0] == '\0'))
 	{
 		*line = NULL;
+		ft_strdel(&dst[fd]);
 		return (0);
 	}
 	if (!(*line = ft_strsub(dst[fd], 0, i)))

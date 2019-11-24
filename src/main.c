@@ -13,7 +13,6 @@
 #include "../includes/push_swap.h"
 #include <stdio.h>
 
-
 void		ft_is_sorted(t_stack *stacks, t_ps *ps, int ac)
 {
 	t_array	*tmp;
@@ -39,52 +38,22 @@ void		ft_is_sorted(t_stack *stacks, t_ps *ps, int ac)
 	ft_putstr("\033[0m");
 }
 
-
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_stack	stacks;
 	t_ps	ps;
 	char	**nav;
-	int		flag;
 
 	if (ac == 1)
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
-	flag = 0;
-	nav = !ft_strcmp(av[1], "-v") ? av + 2 : av + 1;
-	ac  -= !ft_strcmp(av[1], "-v") ? 2 : 1;
-	ps.v = !ft_strcmp(av[1], "-v") ? 1 : 0;
-	if (ac == 1)
-	{
-		nav = ft_strsplit(nav[0], 32);
-		ac = 0;
-		flag = 1;
-		while (nav[ac])
-			ac++;
-	}
-	if (!(ft_init_stack(&stacks, ac, nav)))
-	{
-		ft_putstr_fd("Error\n", 2);
-		return (0);
-	}
-	if (!(ft_duplicate_stack(&stacks)))
-	{
-		ft_putstr_fd("Error\n", 2);
-		return (0);
-	}
-	ft_init_ps(&ps);
-	if(!(ft_read_do(&ps, &stacks, av[1])))
-		return (0);
-	ft_is_sorted(&stacks, &ps, ac);
+	if ((ac = ft_init_flag(&ps, &nav, av, ac)))
+		if (ft_init_all(&stacks, &ps, ac, nav))
+			if (ft_read_do(&ps, &stacks))
+				ft_is_sorted(&stacks, &ps, ac);
 	ft_del_list(&stacks);
-	if (flag == 1)
-	{
-		flag = 0;
-		while (nav[flag])
-			free(nav[flag++]);
-		free(nav);
-	}
+	ft_del_nav(nav, &ps);
 	return (0);
 }
