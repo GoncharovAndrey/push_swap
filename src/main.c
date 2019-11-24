@@ -39,6 +39,7 @@ void		ft_is_sorted(t_stack *stacks, t_ps *ps, int ac)
 	ft_putstr("\033[0m");
 }
 
+
 int		main(int ac, char **av)
 {
 	t_stack	stacks;
@@ -64,6 +65,11 @@ int		main(int ac, char **av)
 			ac++;
 	}
 	if (!(ft_init_stack(&stacks, ac, nav)))
+	{
+		ft_putstr_fd("Error\n", 2);
+		return (0);
+	}
+	if (!(ft_duplicate_stack(&stacks)))
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (0);

@@ -12,16 +12,75 @@
 
 #include "../includes/push_swap.h"
 #include <stdio.h>
+#include <limits.h>
+
+
+int		ft_duplicate_stack(t_stack *stacks)
+{
+	t_array	*tmp;
+	t_array	*number;
+
+	number = stacks->a_head;
+	while (number != stacks->a_end)
+	{
+		tmp = number->next;
+		while (tmp != stacks->a_end->next)
+		{
+			if (number->num == tmp->num)
+				return (0);
+			tmp = tmp->next;
+		}
+		number = number->next;
+	}
+	return (1);
+}
+
+int	ft_atoi_max(const char *nptr, int *flag)
+{
+	size_t		i;
+	long int	res;
+	int			z;
+
+	res = 0;
+	i = 0;
+	z = 1;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	z = nptr[i] == '-' ? -1 : 1;
+	i = nptr[i] == '-' || nptr[i] == '+' ? i + 1 : i + 0;
+
+//	if (nptr[i] == '-')
+//	{
+//		i++;
+//		z = -1;
+//	}
+//	else if (nptr[i] == '+')
+//		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		res = res * 10 + (nptr[i] - '0');
+		if ((z * res) > INT_MAX || (z * res) < INT_MIN)
+		{
+			*flag = 0;
+			return (-1);
+		}
+		i++;
+	}
+	return (res * z);
+}
+
 int			ft_is_number(char *num)
 {
 	int		i;
 
 	i = 0;
-	if (num[i] == '-')
+	if (num[i] == '-' || num[i] == '+')
 		i++;
+	if (!num[i])
+		return (0);
 	while (num[i])
 	{
-		if (!(num[i] <= '9' && num[i] >= '0'))
+		if (num[i] > '9' || num[i] < '0')
 			return (0);
 		i++;
 	}
@@ -46,6 +105,7 @@ void			ft_init_operation(t_ps *ps)
 int				ft_init_stack(t_stack *stacks, int ac, char **av)
 {
 	t_array		*tmp;
+	int			flag;
 
 	if (!(ft_create_list(stacks, ac )))
 		return (0);
@@ -55,7 +115,13 @@ int				ft_init_stack(t_stack *stacks, int ac, char **av)
 	while (--ac >= 0)
 	{
 		if (ft_is_number(av[ac]))
-			tmp->num = ft_atoi(av[ac]);
+		{
+			if ((tmp->num = ft_atoi_max(av[ac], &flag)) == -1)
+			{
+				if (flag == 0)
+					return (0);
+			}
+		}
 		else
 			return (0);
 		tmp = tmp->prev;

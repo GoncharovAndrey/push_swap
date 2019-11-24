@@ -29,25 +29,7 @@ int		ft_a_sorted(t_stack *stacks)
 	return (1);
 }
 
-int		ft_duplicate_stack(t_stack *stacks)
-{
-	t_array	*tmp;
-	t_array	*number;
 
-	number = stacks->a_head;
-	while (number != stacks->a_end)
-	{
-		tmp = number->next;
-		while (tmp != stacks->a_end->next)
-		{
-			if (number->num == tmp->num)
-				return (0);
-			tmp = tmp->next;
-		}
-		number = number->next;
-	}
-	return (1);
-}
 
 
 
