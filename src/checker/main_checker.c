@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjosue <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,33 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 #include <stdio.h>
-
-void		ft_is_sorted(t_stack *stacks, t_ps *ps, int ac)
-{
-	t_array	*tmp;
-
-	if (ps->v == 1)
-		ft_putstr("\033[31m");
-	if (stacks->size_a != ac)
-	{
-		ft_putstr_fd("KO\n", 1);
-		return ;
-	}
-	tmp = stacks->a_head;
-	while (--ac > 0)
-	{
-		if (tmp->num > tmp->next->num)
-		{
-			ft_putstr_fd("KO\n", 1);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	ft_putstr_fd("OK\n", 1);
-	ft_putstr("\033[0m");
-}
 
 int			main(int ac, char **av)
 {

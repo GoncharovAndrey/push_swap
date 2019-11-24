@@ -10,23 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/push_swap.h"
-
-int		ft_a_sorted(t_stack *stacks)
-{
-	t_array	*tmp;
-	int		size;
-
-	tmp = stacks->a_head;
-	size = stacks->size_a;
-	while (size-- > 1)
-	{
-		if (tmp->num > tmp->next->num)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
+#include "../../includes/push_swap.h"
 
 int		main(int ac, char **av)
 {
@@ -41,7 +25,7 @@ int		main(int ac, char **av)
 	}
 	if ((ac = ft_init_flag(&ps, &nav, av, ac)))
 		if (ft_init_all(&stacks, &ps, ac, nav))
-			ft_push_swap_in(&stacks, &ps);
+			ft_push_swap(&stacks, &ps);
 	ft_del_list(&stacks);
 	ft_del_nav(nav, &ps);
 	return (0);
