@@ -43,6 +43,7 @@ void		ft_for_print_stacks(t_stack *stacks)
 
 void		ft_print_stacks(t_stack *stacks, t_ps *ps, int i)
 {
+	write(1, "\e[1;1H\e[2J", 11);
 	ft_printf("\033[1;33;47m%11s : %-11s\033[0m\n", "COMAND", ps->comand[i]);
 	ft_printf("\033[1;31;46m%10s\033[32m%13s  \033[0m\n", "stack A", "stack B");
 	ft_printf("\033[1;30;46m-------------------------\033[0m\n");

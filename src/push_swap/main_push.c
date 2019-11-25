@@ -20,7 +20,7 @@ int		main(int ac, char **av)
 
 	if (ac == 1)
 	{
-		ft_putstr_fd("Error\n", 2);
+		ft_putendl_fd("Error", 2);
 		return (0);
 	}
 	if ((ac = ft_init_flag(&ps, &nav, av, ac)))

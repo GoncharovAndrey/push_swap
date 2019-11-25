@@ -50,6 +50,7 @@ int				ft_init_stack(t_stack *stacks, int ac, char **av)
 	t_array		*tmp;
 	int			flag;
 
+	flag = 1;
 	if (!(ft_create_list(stacks, ac)))
 		return (0);
 	stacks->size_a = ac;

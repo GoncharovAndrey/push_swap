@@ -36,7 +36,7 @@ int			ft_read_do(t_ps *ps, t_stack *stacks)
 	{
 		if ((i = ft_number_operation(stdin, ps)) == 11)
 		{
-			ft_putstr_fd("Error\n", 2);
+			ft_putendl_fd("Error", 2);
 			ft_strdel(&stdin);
 			return (0);
 		}

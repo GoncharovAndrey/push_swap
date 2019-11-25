@@ -61,7 +61,6 @@ $(OBJ): $(CFIND)
 		@$(MAKE) $(OFILE)
 
 $(OFILE):
-		@echo Create: $(@:obj/%=%)
 		@$(COMP) $(OBJ_DIR)$@ $(SRC_DIR)$(@:%.o=%.c)
 
 clean:
