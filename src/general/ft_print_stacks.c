@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_stacks.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjosue <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/25 15:00:42 by cjosue            #+#    #+#             */
+/*   Updated: 2019/11/25 15:00:45 by cjosue           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
@@ -10,31 +21,31 @@ void		ft_for_print_stacks(t_stack *stacks)
 	tmp_b = stacks->b_head;
 	while (tmp || tmp_b)
 	{
-		printf("\033[1;31;46m");
+		ft_printf("\033[1;31;46m");
 		if (tmp)
 		{
-			printf("%11d ", tmp->num);
+			ft_printf("%11d ", tmp->num);
 			tmp = tmp->next;
 		}
 		else
-			printf("%12c", ' ');
-		printf("\033[30m|\033[32m");
+			ft_printf("%12c", ' ');
+		ft_printf("\033[30m|\033[32m");
 		if (tmp_b)
 		{
-			printf("%11d ", tmp_b->num);
+			ft_printf("%11d ", tmp_b->num);
 			tmp_b = tmp_b->next;
 		}
 		else
-			printf("%12c", ' ');
-		printf("\033[0m\n");
+			ft_printf("%12c", ' ');
+		ft_printf("\033[0m\n");
 	}
 }
 
 void		ft_print_stacks(t_stack *stacks, t_ps *ps, int i)
 {
-	printf("\033[1;33;47m%11s : %-11s\033[0m\n", "COMAND", ps->comand[i]);
-	printf("\033[1;31;46m%10s  \033[32m%11s  \033[0m\n", "stack A", "stack B");
-	printf("\033[1;30;46m-------------------------\033[0m\n");
+	ft_printf("\033[1;33;47m%11s : %-11s\033[0m\n", "COMAND", ps->comand[i]);
+	ft_printf("\033[1;31;46m%10s\033[32m%13s  \033[0m\n", "stack A", "stack B");
+	ft_printf("\033[1;30;46m-------------------------\033[0m\n");
 	ft_for_print_stacks(stacks);
-	printf("\033[1;30;46m-------------------------\033[0m\n\n");
+	ft_printf("\033[1;30;46m-------------------------\033[0m\n\n");
 }
